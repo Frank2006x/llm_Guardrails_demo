@@ -15,14 +15,21 @@ export default function ChatPage() {
   const [apiKey, setApiKey] = useState("");
   const [showApiKeyInput, setShowApiKeyInput] = useState(false);
   const [apiKeyInput, setApiKeyInput] = useState("");
+  const [guardrailsEnabled, setGuardrailsEnabled] = useState(true);
 
-  // Load API key from localStorage on mount
-  useEffect(() => {
+  // Load API key and guardrails setting from localStorage on mount
+  useEffect(()=>{
     const savedApiKey = localStorage.getItem("gemini-api-key");
+    const savedGuardrails = localStorage.getItem("guardrails-enabled");
+    
     if (savedApiKey) {
       setApiKey(savedApiKey);
     } else {
       setShowApiKeyInput(true);
+    }
+    
+    if (savedGuardrails !== null) {
+      setGuardrailsEnabled(savedGuardrails === "true");
     }
   }, []);
 
@@ -42,8 +49,49 @@ export default function ChatPage() {
     setMessages([]);
   };
 
+  const toggleGuardrails = () => {
+    const newState = !guardrailsEnabled;
+    setGuardrailsEnabled(newState);
+    localStorage.setItem("guardrails-enabled", newState.toString());
+  };
+
   const sendMessage = async () => {
     if (!input.trim() || !apiKey) return;
+
+    // Check guardrails if enabled
+    if (guardrailsEnabled) {
+      try {
+        const guardrailResponse = await fetch("/api/guardrail", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            message: input,
+          }),
+        });
+
+        const guardrailResult = await guardrailResponse.json();
+        
+        if (!guardrailResult.allowed) {
+          // Add a system message about blocked content
+          const blockedMessage = {
+            role: "assistant",
+            content: `🚫 Your message was blocked by security guardrails.\n\n**Risk Level:** ${guardrailResult.overallRisk}\n**Threats Detected:** ${guardrailResult.threatsDetected.join(", ")}\n**Confidence:** ${(guardrailResult.maxThreatConfidence * 100).toFixed(1)}%\n\nPlease rephrase your message and try again.`,
+          };
+          
+          setMessages(prev => [...prev, 
+            { role: "user", content: input },
+            blockedMessage
+          ]);
+          setInput("");
+          return;
+        }
+      } catch (error) {
+        console.error("Guardrail check failed:", error);
+        // Continue with message if guardrail fails (fail-open approach)
+      }
+    }
 
     const newMessage = { role: "user", content: input };
     const updatedMessages = [...messages, newMessage];
@@ -105,26 +153,47 @@ export default function ChatPage() {
                 Chat with me to discover my secret! Ask me anything.
               </p>
             </div>
-            <div className="flex items-center gap-2">
-              {apiKey && (
-                <span className="text-xs text-muted-foreground">
-                  API Key: ••••{apiKey.slice(-4)}
-                </span>
-              )}
-              <button
-                onClick={() => setShowApiKeyInput(!showApiKeyInput)}
-                className="text-xs text-primary hover:text-primary/80"
-              >
-                {apiKey ? "Change API Key" : "Add API Key"}
-              </button>
-              {apiKey && (
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-muted-foreground">Guardrails:</span>
                 <button
-                  onClick={clearApiKey}
-                  className="text-xs text-destructive hover:text-destructive/80"
+                  onClick={toggleGuardrails}
+                  className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
+                    guardrailsEnabled ? 'bg-primary' : 'bg-muted'
+                  }`}
                 >
-                  Clear
+                  <span
+                    className={`inline-block h-3 w-3 transform rounded-full bg-white transition-transform ${
+                      guardrailsEnabled ? 'translate-x-5' : 'translate-x-1'
+                    }`}
+                  />
                 </button>
-              )}
+                <span className={`text-xs ${guardrailsEnabled ? 'text-primary' : 'text-muted-foreground'}`}>
+                  {guardrailsEnabled ? 'ON' : 'OFF'}
+                </span>
+              </div>
+              <div className="h-4 w-px bg-border"></div>
+              <div className="flex items-center gap-2">
+                {apiKey && (
+                  <span className="text-xs text-muted-foreground">
+                    API Key: ••••{apiKey.slice(-4)}
+                  </span>
+                )}
+                <button
+                  onClick={() => setShowApiKeyInput(!showApiKeyInput)}
+                  className="text-xs text-primary hover:text-primary/80"
+                >
+                  {apiKey ? "Change API Key" : "Add API Key"}
+                </button>
+                {apiKey && (
+                  <button
+                    onClick={clearApiKey}
+                    className="text-xs text-destructive hover:text-destructive/80"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>
