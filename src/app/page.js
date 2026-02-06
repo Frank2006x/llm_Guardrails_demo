@@ -38,8 +38,10 @@ export default function Home() {
               <span className="block text-primary">with LLM Guardrails</span>
             </h1>
             <p className="mb-8 text-xl text-muted-foreground max-w-2xl mx-auto">
-              Explore an AI chatbot that protects a hidden secret using state-of-the-art security measures. 
-              Test your prompt engineering skills against advanced guardrails designed to prevent unauthorized information extraction.
+              Explore an AI chatbot that protects a hidden secret using
+              state-of-the-art security measures. Test your prompt engineering
+              skills against advanced guardrails designed to prevent
+              unauthorized information extraction.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -75,8 +77,9 @@ export default function Home() {
                   Secret Protection
                 </h3>
                 <p className="text-muted-foreground">
-                  The chatbot knows a hidden secret. Your challenge is to extract it through conversation 
-                  while the AI tries to keep it safe.
+                  The chatbot knows a hidden secret. Your challenge is to
+                  extract it through conversation while the AI tries to keep it
+                  safe.
                 </p>
               </div>
 
@@ -88,8 +91,8 @@ export default function Home() {
                   Advanced Guardrails
                 </h3>
                 <p className="text-muted-foreground">
-                  Powered by llm_guardrail package with multi-model detection for prompt injection, 
-                  jailbreaks, and malicious content.
+                  Powered by llm_guardrail package with multi-model detection
+                  for prompt injection, jailbreaks, and malicious content.
                 </p>
               </div>
 
@@ -101,8 +104,8 @@ export default function Home() {
                   Your Own API Key
                 </h3>
                 <p className="text-muted-foreground">
-                  Use your own Google Gemini API key for complete privacy and control. 
-                  No server-side API keys exposed.
+                  Use your own Google Gemini API key for complete privacy and
+                  control. No server-side API keys exposed.
                 </p>
               </div>
 
@@ -114,21 +117,23 @@ export default function Home() {
                   Real-time Protection
                 </h3>
                 <p className="text-muted-foreground">
-                  Security checks run in under 10ms with detailed threat analysis and 
-                  risk assessment for every message.
+                  Security checks run in under 10ms with detailed threat
+                  analysis and risk assessment for every message.
                 </p>
               </div>
 
               <div className="rounded-lg bg-card p-6 shadow-sm border border-border">
                 <div className="mb-4 h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <div className="h-3 w-6 bg-primary/30 rounded-full relative"><div className="h-2 w-2 bg-primary rounded-full absolute right-0 top-0.5"></div></div>
+                  <div className="h-3 w-6 bg-primary/30 rounded-full relative">
+                    <div className="h-2 w-2 bg-primary rounded-full absolute right-0 top-0.5"></div>
+                  </div>
                 </div>
                 <h3 className="mb-2 text-xl font-semibold text-card-foreground">
                   Toggle Controls
                 </h3>
                 <p className="text-muted-foreground">
-                  Enable or disable guardrails on-demand to see the difference in security 
-                  protection and AI behavior.
+                  Enable or disable guardrails on-demand to see the difference
+                  in security protection and AI behavior.
                 </p>
               </div>
 
@@ -140,8 +145,8 @@ export default function Home() {
                   Modern Interface
                 </h3>
                 <p className="text-muted-foreground">
-                  Beautiful dark mode interface with ElevenLabs conversation components 
-                  and responsive design.
+                  Beautiful dark mode interface with ElevenLabs conversation
+                  components and responsive design.
                 </p>
               </div>
             </div>
@@ -164,8 +169,9 @@ export default function Home() {
                     Enter Your API Key
                   </h3>
                   <p className="text-muted-foreground">
-                    Get a free API key from Google AI Studio and enter it securely. 
-                    Your key is stored locally and never shared with our servers.
+                    Get a free API key from Google AI Studio and enter it
+                    securely. Your key is stored locally and never shared with
+                    our servers.
                   </p>
                 </div>
               </div>
@@ -179,8 +185,9 @@ export default function Home() {
                     Try to Extract the Secret
                   </h3>
                   <p className="text-muted-foreground">
-                    Chat with the AI and try different approaches to discover the hidden secret. 
-                    Use direct questions, clever prompts, or social engineering techniques.
+                    Chat with the AI and try different approaches to discover
+                    the hidden secret. Use direct questions, clever prompts, or
+                    social engineering techniques.
                   </p>
                 </div>
               </div>
@@ -194,8 +201,9 @@ export default function Home() {
                     Watch Guardrails in Action
                   </h3>
                   <p className="text-muted-foreground">
-                    Toggle guardrails on/off to see how advanced security measures detect and 
-                    block malicious prompts, injections, and jailbreak attempts.
+                    Toggle guardrails on/off to see how advanced security
+                    measures detect and block malicious prompts, injections, and
+                    jailbreak attempts.
                   </p>
                 </div>
               </div>
@@ -210,8 +218,9 @@ export default function Home() {
               Test Advanced AI Security Measures
             </h2>
             <p className="mb-8 text-xl text-primary-foreground/90">
-              Evaluate the effectiveness of modern LLM security guardrails in a controlled environment 
-              while attempting to extract protected information through various conversation techniques.
+              Evaluate the effectiveness of modern LLM security guardrails in a
+              controlled environment while attempting to extract protected
+              information through various conversation techniques.
             </p>
             <Link
               href="/chat"
@@ -228,8 +237,8 @@ export default function Home() {
         <div className="mx-auto max-w-6xl text-center text-muted-foreground">
           <p>
             Built with{" "}
-            <a 
-              href="https://nextjs.org" 
+            <a
+              href="https://nextjs.org"
               className="text-primary hover:underline"
               target="_blank"
               rel="noopener noreferrer"
@@ -237,8 +246,8 @@ export default function Home() {
               Next.js
             </a>
             {", "}
-            <a 
-              href="https://www.npmjs.com/package/llm_guardrail" 
+            <a
+              href="https://www.npmjs.com/package/llm_guardrail"
               className="text-primary hover:underline"
               target="_blank"
               rel="noopener noreferrer"
@@ -246,8 +255,8 @@ export default function Home() {
               LLM Guardrails
             </a>
             {", and "}
-            <a 
-              href="https://ai.google.dev/" 
+            <a
+              href="https://ai.google.dev/"
               className="text-primary hover:underline"
               target="_blank"
               rel="noopener noreferrer"
